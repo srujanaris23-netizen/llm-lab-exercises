@@ -1,0 +1,43 @@
+services:
+  flask:
+    build: .
+    ports:
+      - "5001:5001"
+    environment:
+      MYSQL_HOST: mysql
+      REDIS_HOST: redis
+    networks:
+      - my-bridge-net
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_started
+
+  mysql:
+    image: mysql:8.4
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Set MYSQL_ROOT_PASSWORD in .env}
+      MYSQL_DATABASE: demo_db
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - my-bridge-net
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p\"$$MYSQL_ROOT_PASSWORD\" --silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+  redis:
+    image: redis:7-alpine
+    networks:
+      - my-bridge-net
+
+networks:
+  my-bridge-net:
+    driver: bridge
+
+volumes:
+  mysql-data:

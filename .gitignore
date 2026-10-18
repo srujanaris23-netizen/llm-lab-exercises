@@ -1,0 +1,14 @@
+# Python virtual environment
+.venv/
+venv/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Secrets and local settings
+.env
+
+# VS Code settings
+.vscode/
+course_model/model.safetensors

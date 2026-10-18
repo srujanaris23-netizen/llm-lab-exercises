@@ -1,0 +1,7 @@
+
+.venv/
+__pycache__/
+*.pyc
+training_results/
+.git/
+.vscode/

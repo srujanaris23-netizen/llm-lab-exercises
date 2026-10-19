@@ -24,3 +24,6 @@ secrets/
 
 # Generated test and training artifacts
 .pytest_cache/
+
+__pycache__/
+*.py[cod]

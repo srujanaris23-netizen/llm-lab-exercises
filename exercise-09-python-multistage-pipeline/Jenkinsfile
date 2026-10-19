@@ -1,0 +1,59 @@
+﻿
+pipeline {
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                sh 'docker build -t exercise-09-flask "$WORKSPACE"'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                sh 'docker run --rm exercise-09-flask python -m unittest discover -s . -v'
+            }
+        }
+
+        stage('Code Quality') {
+            steps {
+                sh 'docker run --rm exercise-09-flask flake8 app.py test_app.py --ignore=E501'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                sh '''
+                    docker rm -f python-flask-app 2>/dev/null || true
+                    docker run -d --name python-flask-app -p 5001:5000 exercise-09-flask
+                '''
+            }
+        }
+
+        stage('Run Application') {
+            steps {
+                sh 'docker ps --filter name=python-flask-app'
+            }
+        }
+
+        stage('Test Application') {
+            steps {
+                sh '''
+                    docker exec python-flask-app python -c "import urllib.request; print(urllib.request.urlopen('http://127.0.0.1:5000/', timeout=10).read().decode())"
+                '''
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed. Check the console output.'
+        }
+        always {
+            echo 'Pipeline execution finished.'
+        }
+    }
+}

@@ -1,10 +1,13 @@
-﻿FROM jenkins/jenkins:lts-jdk21
+FROM jenkins/jenkins:lts-jdk21
 
 USER root
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends docker.io \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+    && apt-get install -y --no-install-recommends curl ca-certificates tar \
+    && curl -fsSL https://download.docker.com/linux/static/stable/x86_64/docker-29.7.2.tgz -o /tmp/docker.tgz \
+    && tar -xzf /tmp/docker.tgz -C /tmp \
+    && install -m 0755 /tmp/docker/docker /usr/local/bin/docker \
+    && /usr/local/bin/docker --version \
+    && rm -rf /tmp/docker /tmp/docker.tgz /var/lib/apt/lists/*
 
 USER jenkins

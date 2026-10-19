@@ -5,3 +5,22 @@ __pycache__/
 .env
 .vscode/
 *.safetensors
+
+# Python environments and generated files
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+
+# Jenkins local data and secrets
+jenkins_data/
+secrets/
+*initialAdminPassword*
+
+# Generated test and training artifacts
+.pytest_cache/

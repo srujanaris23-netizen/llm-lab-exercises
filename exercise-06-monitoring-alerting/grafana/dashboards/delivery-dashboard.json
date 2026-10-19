@@ -1,0 +1,48 @@
+{
+  "uid": "delivery-operations",
+  "title": "Delivery Operations Monitoring",
+  "tags": ["delivery", "monitoring"],
+  "timezone": "browser",
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "5s",
+  "panels": [
+    {
+      "id": 1,
+      "title": "Total Deliveries",
+      "type": "timeseries",
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0},
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "targets": [{"expr": "total_deliveries", "refId": "A"}]
+    },
+    {
+      "id": 2,
+      "title": "Pending Deliveries",
+      "type": "timeseries",
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0},
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "targets": [{"expr": "pending_deliveries", "refId": "A"}]
+    },
+    {
+      "id": 3,
+      "title": "Deliveries On The Way",
+      "type": "timeseries",
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 8},
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "targets": [{"expr": "on_the_way_deliveries", "refId": "A"}]
+    },
+    {
+      "id": 4,
+      "title": "Average Delivery Time (seconds)",
+      "type": "timeseries",
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 8},
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "targets": [
+        {
+          "expr": "rate(average_delivery_time_sum[1m]) / rate(average_delivery_time_count[1m])",
+          "refId": "A"
+        }
+      ]
+    }
+  ]
+}

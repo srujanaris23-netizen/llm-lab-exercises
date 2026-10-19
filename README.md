@@ -9,11 +9,11 @@ This repository contains my lab exercises covering language models, API developm
 3. [Exercise 3 — Flash Sale Simulation with ReplicaSet](./exercise-03-flash-sale/)
 4. [Exercise 4 — Docker Networking](./exercise-04-docker-networking/)
 5. [Exercise 5 — Docker Security and AppArmor](./exercise-05-docker-security/)
-6. Exercise 6 — To be added
-7. Exercise 7 — To be added
-8. Exercise 8 — To be added
-9. Exercise 9 — To be added
-10. Exercise 10 — To be added
+6. Exercise 6 — exercise-06-monitoring-alerting
+7. Exercise 7 — ci-jenkins
+8. Exercise 8 — hello-world-jenkins
+9. Exercise 9 — python multistage-pipeline
+10. Exercise 10 — multinode-kubernetes
 
 ## General Requirements
 
